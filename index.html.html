@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>청디상담소 - YouTube Shorts 갤러리</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1e3a8a;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 8px;
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .character-img {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .character-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .year-text {
+            font-size: 0.95em;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .main-title {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #000;
+            letter-spacing: -0.5px;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            height: 60px;
+        }
+
+        .logo-img img {
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .qr-text {
+            text-align: right;
+        }
+
+        .qr-text-main {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 8px;
+        }
+
+        .qr-text-sub {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-group img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .video-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            padding-bottom: 177.78%;
+            background: linear-gradient(135deg, #a8d5ba 0%, #c8e6c9 100%);
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 65px;
+            height: 65px;
+            background: rgba(255, 0, 0, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+        }
+
+        .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.2);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
+        }
+
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 18px solid white;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            margin-left: 4px;
+        }
+
+        .shorts-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 700;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .video-info {
+            padding: 18px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .video-title {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 60px;
+            text-align: center;
+        }
+
+        @media (max-width: 968px) {
+            .header {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .header-left {
+                flex-direction: column;
+            }
+
+            .header-center {
+                order: 3;
+            }
+
+            .header-right {
+                flex-direction: column;
+                order: 2;
+            }
+
+            .qr-text {
+                text-align: center;
+            }
+
+            .qr-code {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-img {
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+
+            .character-img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .main-title {
+                font-size: 1.8em;
+            }
+
+            .year-text {
+                font-size: 0.85em;
+            }
+
+            .qr-text-main {
+                font-size: 1.1em;
+            }
+
+            .qr-text-sub {
+                font-size: 0.8em;
+            }
+
+            .logo-img {
+                height: 40px;
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                padding: 15px;
+            }
+
+            .video-title {
+                font-size: 0.85em;
+                min-height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .play-button {
+                width: 50px;
+                height: 50px;
+            }
+
+            .play-button::after {
+                border-left: 14px solid white;
+                border-top: 9px solid transparent;
+                border-bottom: 9px solid transparent;
+            }
+
+            .video-title {
+                font-size: 0.8em;
+                min-height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="character-img">
+                    <img src="cheongdy_logo.png" alt="청디 캐릭터">
+                </div>
+                <div class="header-title">
+                    <div class="year-text">2025년 청소년 안전홍보단</div>
+                    <div class="main-title">청디상담소</div>
+                </div>
+            </div>
+            <div class="header-center">
+                <div class="logo-img">
+                    <img src="logogo.jpg" alt="파트너 로고">
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="qr-text">
+                    <div class="qr-text-main">"청디가 너의 고민을 들어줄게"</div>
+                    <div class="qr-text-sub">*심리상담전공 대학원생이 청소년의 고민을 해결해드려요</div>
+                </div>
+                <div class="qr-code">
+                    <img src="cheongdy_qr.jpg" alt="QR 코드">
+                </div>
+            </div>
+        </div>
+        <div class="video-grid" id="videoGrid"></div>
+    </div>
+
+    <script>
+        const videos = [
+            {
+                id: 'eyAUj-gAMcs',
+                title: '내 몸에 상처를 입히고 싶을 때, 감정을 풀 수 있는 안전한 방법'
+            },
+            {
+                id: 'dN-IcR1umIo',
+                title: '사랑이 아닌 성범죄 수법! 청소년을 노리는 온라인 그루밍'
+            },
+            {
+                id: 'yFU_GnI2KNY',
+                title: '바로 실천 가능한 행복해지는 방법'
+            },
+            {
+                id: 'haKm7Sl3yh8',
+                title: '마음이 답답할 때 기분 푸는 법'
+            },
+            {
+                id: 'z1ouFN_g1lw',
+                title: '친구가 저를 싫어하는 것 같아요'
+            }
+        ];
+
+        const videoGrid = document.getElementById('videoGrid');
+
+        videos.forEach((video, index) => {
+            const card = document.createElement('div');
+            card.className = 'video-card';
+            card.onclick = () => window.open(`https://www.youtube.com/shorts/${video.id}`, '_blank');
+
+            card.innerHTML = `
+                <div class="video-thumbnail">
+                    <div class="shorts-badge">Shorts</div>
+                    <img src="https://img.youtube.com/vi/${video.id}/maxresdefault.jpg" 
+                         alt="${video.title}"
+                         onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
+                    <div class="play-button"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-title">${video.title}</div>
+                </div>
+            `;
+
+            videoGrid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
